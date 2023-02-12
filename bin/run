@@ -1,0 +1,18 @@
+const concurrently = require('concurrently');
+const nestConfigs = require('../nest-cli.json');
+
+const { result } = concurrently(
+  [
+    ...Object.keys(nestConfigs.projects).filter((app) => nestConfigs.projects[app].type === 'application').map((app, index) => {
+      console.log(app, `debug=127.0.0.3:923${index}`);
+      return ({
+        name: app,
+        command: `node --v8-pool-size=0 node_modules/@nestjs/cli/bin/nest.js start --debug=127.0.0.3:923${index} --watch ${app}`,
+      })
+    }),
+    // { name: 'proxy', cwd: `${process.cwd()}/proxy/src/service`, command: `${process.cwd()}/proxy/src/service/pkg/app` }
+  ],
+  { prefix: 'name', killOthers: ['failure', 'success'], restartTries: 1 },
+);
+
+(async () => result)();

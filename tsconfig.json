@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "esnext",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "skipDefaultLibCheck": true,
+    "noImplicitThis": true,
+    "paths": {
+      "@app/data-processor": [ "apps/data-processor/src" ],
+      "@app/data-processor/*": [ "apps/data-processor/src/*" ],
+
+      "@app/alert-monitor": [ "apps/alert-monitor/src" ],
+      "@app/alert-monitor/*": [ "apps/alert-monitor/src/*" ],
+
+      "@app/alert-handler": [ "apps/alert-handler/src" ],
+      "@app/alert-handler/*": [ "apps/alert-handler/src/*" ],
+
+      "@app/service": [ "libs/service/src" ],
+      "@app/service/*": [ "libs/service/src/*" ]
+    }
+  }
+}

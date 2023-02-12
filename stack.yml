@@ -1,0 +1,95 @@
+version: '3.9'
+x-variables: &ex-variables
+  TZ: UTC
+  mongodb.url: 'mongodb://root:example@mongo:27017'
+  webhook.url: 'https://typedwebhook.tools/webhook/95fc7341-a6ce-4388-b83b-d24566ed2d96'
+  alert-handler.kafka.client.brokers: '[ "kafka1:9092" ]'
+  alert-monitor.kafka.client.brokers: '[ "kafka1:9092" ]'
+  binance.tickers: "{
+                      market: 'spot',
+                      symbols: [
+                       'BTCUSDT',
+                       'BNBUSDT',
+                       'ETHUSDT'
+                      ],
+                      threshold: {
+                       BTCUSDT: {
+                         ask: {
+                           up: '15',
+                           down: '-15',
+                           reachedto: '22795',
+                           wentdownto: '21695'
+                         },
+                         bid: {
+                           up: '15',
+                           down: '-15',
+                           reachedto: '22795',
+                           wentdownto: '21695'
+                         }
+                       },
+                       BNBUSDT: {
+                         ask: {
+                           up: '15',
+                           down: '-15',
+                           reachedto: '309',
+                           wentdownto: '304'
+                         },
+                         bid: {
+                           up: '15',
+                           down: '-15',
+                           reachedto: '309',
+                           wentdownto: '304'
+                         }
+                       },
+                       ETHUSDT: {
+                         ask: {
+                           up: '15',
+                           down: '-15',
+                           reachedto: '1522',
+                           wentdownto: '1552'
+                         },
+                         bid: {
+                           up: '15',
+                           down: '-15',
+                           reachedto: '1522',
+                           wentdownto: '1552'
+                         }
+                       }
+                      }
+                    }"
+
+services:
+  data-processor:
+    build:
+      context: .
+      target: data-processor
+      dockerfile: Dockerfile
+    environment:
+      <<: *ex-variables
+    networks:
+      - ex-monitor
+
+  alert-monitor:
+    build:
+      context: .
+      target: alert-monitor
+      dockerfile: Dockerfile
+    environment:
+      <<: *ex-variables
+    networks:
+      - ex-monitor
+
+  alert-handler:
+    build:
+      context: .
+      target: alert-handler
+      dockerfile: Dockerfile
+    environment:
+      <<: *ex-variables
+    networks:
+      - ex-monitor
+
+networks:
+  ex-monitor:
+    driver: bridge
+    external: true

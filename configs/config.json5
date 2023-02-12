@@ -1,0 +1,129 @@
+{
+  app: {
+    env: 'local',
+    name: 'app',
+    logging: 'debug',
+    // 'log' | 'error' | 'warn' | 'debug' | 'verbose'
+  },
+  'alert-handler': {
+    transports: [
+      'kafka'
+    ],
+    kafka: {
+      client: {
+        clientId: 'alert-handler',
+        brokers: [
+          '127.0.0.1:9092'
+        ],
+      },
+      consumer: {
+        groupId: 'alert-handler-consumer',
+        allowAutoTopicCreation: true,
+      },
+      run: {
+        autoCommit: true,
+        autoCommitInterval: 10000,
+        autoCommitThreshold: 100
+      }
+
+    }
+  },
+  'alert-monitor': {
+    transports: [
+      'kafka'
+    ],
+    kafka: {
+      client: {
+        clientId: 'alert-monitor',
+        brokers: [
+          '127.0.0.1:9092'
+        ],
+      },
+      consumer: {
+        groupId: 'alert-monitor-consumer',
+        allowAutoTopicCreation: true,
+      },
+      run: {
+        autoCommit: true,
+        autoCommitInterval: 10000,
+        autoCommitThreshold: 100
+      }
+    }
+  },
+  'data-processor': {
+    transports: [
+      'kafka'
+    ],
+  },
+  binance: {
+    secrets: {
+      apiKey: 'sEyFSOjQ5ZqCxvIvTda245gHSDgiU9CyH5iJ1WnTX5KsBegwe44myA6xcqggZHx6',
+      apiSecret: 'oiCpETIlBGApYwTqrVVAzv9kPF4P6pNfoKcggLaCYe5DF2giMjfQ4blwDrLTtr8q'
+    },
+    tickers: {
+      market: 'spot',
+      symbols: [
+        'BTCUSDT',
+        'BNBUSDT',
+        'ETHUSDT'
+      ],
+      threshold: {
+        BTCUSDT: {
+          ask: {
+            up: '5',
+            down: '-5',
+            reachedto: '22795',
+            wentdownto: '21695'
+          },
+          bid: {
+            up: '5',
+            down: '-5',
+            reachedto: '22795',
+            wentdownto: '21695'
+          }
+        },
+        BNBUSDT: {
+          ask: {
+            up: '5',
+            down: '-5',
+            reachedto: '309',
+            wentdownto: '304'
+          },
+          bid: {
+            up: '5',
+            down: '-5',
+            reachedto: '309',
+            wentdownto: '304'
+          }
+        },
+        ETHUSDT: {
+          ask: {
+            up: '5',
+            down: '-5',
+            reachedto: '1522',
+            wentdownto: '1552'
+          },
+          bid: {
+            up: '5',
+            down: '-5',
+            reachedto: '1522',
+            wentdownto: '1552'
+          }
+        },
+      }
+    }
+  },
+  webhook: {
+    url: 'https://typedwebhook.tools/webhook/cca73f88-2644-4dc0-ad10-bc9363785be1'
+  },
+  mongodb: {
+    url: 'mongodb://root:example@127.0.0.1:27017',
+    db: 'exchange',
+    options: {
+      connectTimeoutMS: 100000,
+      ignoreUndefined: true,
+      minPoolSize: 5,
+      maxPoolSize: 100
+    }
+  }
+}

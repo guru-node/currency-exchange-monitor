@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/data-processor/src",
+  "compilerOptions": {
+    "deleteOutDir": true,
+    "webpack": true,
+    "tsConfigPath": "apps/data-processor/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "root": "apps/data-processor",
+  "projects": {
+    "data-processor": {
+      "type": "application",
+      "root": "apps/data-processor",
+      "entryFile": "main",
+      "sourceRoot": "apps/data-processor/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/data-processor/tsconfig.app.json"
+      }
+    },
+    "alert-monitor": {
+      "type": "application",
+      "root": "apps/alert-monitor",
+      "entryFile": "main",
+      "sourceRoot": "apps/alert-monitor/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/alert-monitor/tsconfig.app.json"
+      }
+    },
+    "alert-handler": {
+      "type": "application",
+      "root": "apps/alert-handler",
+      "entryFile": "main",
+      "sourceRoot": "apps/alert-handler/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/alert-handler/tsconfig.app.json"
+      }
+    },
+    "service": {
+      "type": "library",
+      "root": "libs/service",
+      "entryFile": "index",
+      "sourceRoot": "libs/service/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/service/tsconfig.lib.json"
+      }
+    }
+  }
+}
